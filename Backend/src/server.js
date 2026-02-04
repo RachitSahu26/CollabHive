@@ -9,7 +9,7 @@ app.use(express.json());
 // app.use(cors({ origin: process.env.CLIENT_URL }));
 
 app.get("/", (req, res) => {
-    res.send("Hello World! 123");
+    res.send("Hello World! Welcome Rachit ");
 });
 app.use("/api/inngests", serve({ client: inngest, functions }));
 

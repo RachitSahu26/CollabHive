@@ -2,7 +2,7 @@ import { Inngest } from "inngest";
 import { createUser, deleteUserByClerkId } from "../models/user.model.js";
 import { connectDB } from "./db.js";
 
-export const inngest = new Inngest({ id: "collav-hive" });
+export const inngest = new Inngest({ id: "Collav_hive_second" });
 
 const syncUser = inngest.createFunction(
   { id: "sync-user" },
