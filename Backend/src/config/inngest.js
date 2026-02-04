@@ -5,7 +5,7 @@ import { connectDB } from "./db.js";
 export const inngest = new Inngest({ id: "Collav_hive_second" });
 
 const syncUser = inngest.createFunction(
-  { id: "sync-user" },
+  { id: "sync-user_second" },
   { event: "clerk/user.created" },
   async ({ event }) => {
     await connectDB();
@@ -24,7 +24,7 @@ const syncUser = inngest.createFunction(
 );
 
 const deleteUserFromDB = inngest.createFunction(
-  { id: "delete-user-from-db" },
+  { id: "delete-user-from-db_second" },
   { event: "clerk/user.deleted" },
   async ({ event }) => {
     await connectDB();
