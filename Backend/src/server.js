@@ -7,6 +7,10 @@ import { serve } from "inngest/express";
 const app = express();
 app.use(express.json());
 // app.use(cors({ origin: process.env.CLIENT_URL }));
+
+app.get("/", (req, res) => {
+    res.send("Hello World! 123");
+});
 app.use("/api/inngest", serve({ client: inngest, functions }));
 
 const startServer = async () => {
