@@ -11,7 +11,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
     res.send("Hello World! 123");
 });
-app.use("/api/inngest", serve({ client: inngest, functions }));
+app.use("/api/inngests", serve({ client: inngest, functions }));
 
 const startServer = async () => {
   try {
