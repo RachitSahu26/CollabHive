@@ -1,9 +1,7 @@
 import { Inngest } from "inngest";
+import { createUser, deleteUserByClerkId } from "../models/user.model.js";
 import { connectDB } from "./db.js";
-import { User } from "../models/user.model.js"; // Import the User model
-// import { addUserToPublicChannels, deleteStreamUser, upsertStreamUser } from "./stream.js";
 
-// Create a client to send and receive events
 export const inngest = new Inngest({ id: "collav-hive" });
 
 const syncUser = inngest.createFunction(
@@ -17,19 +15,11 @@ const syncUser = inngest.createFunction(
     const newUser = {
       clerkId: id,
       email: email_addresses[0]?.email_address,
-      name: `${first_name || ""} ${last_name || ""}`,
+      name: `${first_name || ""} ${last_name || ""}`.trim(),
       image: image_url,
     };
 
-    await User.create(newUser);
-
-    // await upsertStreamUser({
-    //   id: newUser.clerkId.toString(),
-    //   name: newUser.name,
-    //   image: newUser.image,
-    // });
-
-    // await addUserToPublicChannels(newUser.clerkId.toString());
+    await createUser(newUser);
   }
 );
 
@@ -39,11 +29,8 @@ const deleteUserFromDB = inngest.createFunction(
   async ({ event }) => {
     await connectDB();
     const { id } = event.data;
-    await User.deleteOne({ clerkId: id });
-
-    // await deleteStreamUser(id.toString());
+    await deleteUserByClerkId(id);
   }
 );
 
-// Create an empty array where we'll export future Inngest functions
 export const functions = [syncUser, deleteUserFromDB];

@@ -1,13 +1,23 @@
-import mongoose from "mongoose";
+import pkg from "pg";
 import { ENV } from "./env.js";
+
+const { Pool } = pkg;
+
+const pool = new Pool({
+  connectionString: ENV.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // required for Neon
+  },
+});
 
 export const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(ENV.MONGO_URI);
-
-    console.log("MongoDB connected successfully:", conn.connection.host);
+    const res = await pool.query("SELECT NOW()");
+    console.log("Neon PostgreSQL connected at:", res.rows[0].now);
   } catch (error) {
-    console.log("Error connecting to MongoDB:", error);
-    process.exit(1); // Status code 1 indicates an error, 0 indicates success
+    console.error("Database connection error:", error);
+    process.exit(1);
   }
 };
+
+export default pool;

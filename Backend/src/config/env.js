@@ -4,7 +4,7 @@ dotenv.config(); // THIS loads .env into process.env
 
 export const ENV = {
   PORT: process.env.PORT || 5001,
-  MONGO_URI: process.env.MONGO_URI,
+  DATABASE_URL: process.env.DATABASE_URL,
   NODE_ENV: process.env.NODE_ENV,
   CLERK_PUBLISHABLE_KEY: process.env.CLERK_PUBLISHABLE_KEY,
   CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
